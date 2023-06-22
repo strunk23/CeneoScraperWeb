@@ -22,8 +22,6 @@ def get_element(dom_tree, selector=None, attribute=None, return_list=False):
 def clean_text(text):
     return ' '.join(text.replace(r"\s", " ").split())
 
-product_code = "129901214"
-
 def scraper(product_code: str):
     selectors = {
     "opinion_id": [None, "data-entry-id"],
@@ -86,7 +84,3 @@ def scraper(product_code: str):
         os.mkdir("opinions")
     with open(f"./opinions/{product_code}.json", "w", encoding="UTF-8") as jf:
         json.dump(all_opinions, jf, indent=4, ensure_ascii=False)
-
-    print(response.status_code)
-
-scraper(product_code)
