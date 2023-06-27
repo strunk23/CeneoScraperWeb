@@ -79,8 +79,6 @@ def scraper(product_code: str):
             else:
                 print(f"There are no opinions about product with code {product_code}")
                 url = None
-
-    if not os.path.exists("opinions"):
-        os.mkdir("opinions")
-    with open(f"./opinions/{product_code}.json", "w", encoding="UTF-8") as jf:
+                
+    with open(f"app/static/opinions/{product_code}.json", "w", encoding="UTF-8") as jf:
         json.dump(all_opinions, jf, indent=4, ensure_ascii=False)
