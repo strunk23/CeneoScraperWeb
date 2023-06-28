@@ -7,6 +7,9 @@ from scraper.analyzer import analyzer
 from flask import render_template, request, redirect, url_for, send_file
 
 
+code_file = 'app/static/codes.txt'
+opinions_file = 'app/static/opinions'
+
 @app.route('/')
 def index():
     return render_template('index.html.jinja')
@@ -16,10 +19,10 @@ def run_scraper():
     if request.method == 'POST':
         global code
         code = request.form['code']
-        with open('app/static/codes.txt', 'w+') as f:
+        with open(code_file, 'w+') as f:
             f.write(code)
             f.close()
-        onlyfiles = [f for f in listdir('app/static/opinions') if isfile(join('app/static/opinions', f))]
+        onlyfiles = [f for f in listdir(opinions_file) if isfile(join(opinions_file, f))]
         all_codes = [f[:-5] for f in onlyfiles]
         if code not in all_codes:
             scraper(code)
@@ -30,7 +33,7 @@ def run_scraper():
     
 @app.route('/results/<id>', methods=['GET', 'POST'])
 def results(id):
-    with open('app/static/codes.txt', 'r') as f:
+    with open(code_file, 'r') as f:
         code = f.read()
         f.close()
     paths = []
@@ -40,7 +43,7 @@ def results(id):
 
 @app.route('/download', methods=['GET', 'POST'])
 def download():
-    with open('app/static/codes.txt', 'r') as f:
+    with open(code_file, 'r') as f:
         code = f.read()
         f.close()
     path = f'static/opinions/{code}.json'
