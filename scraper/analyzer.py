@@ -20,7 +20,7 @@ def analyzer(product_code: str):
         autopct = lambda p: '{:.1f}%'.format(round(p)) if p > 0 else ''
         )
     plt.title("Recommandations")
-    plt.savefig(f"app/static/Image/{product_code}_pie.png")
+    plt.savefig(f"app/static/img/{product_code}_pie.png")
     plt.close()
 
     stars = opinions.stars.value_counts().reindex(list(np.arange(0, 5.5, 0.5)), fill_value=0)
@@ -33,4 +33,4 @@ def analyzer(product_code: str):
     plt.grid(True, "major", "y")
     for index, value in enumerate(stars):
         plt.text(index, value+1.5, str(value), ha = "center")
-    plt.savefig(f"app/static/Image/{product_code}_bar.png")
+    plt.savefig(f"app/static/img/{product_code}_bar.png")

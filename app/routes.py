@@ -4,10 +4,8 @@ from os.path import isfile, join
 from app import app
 from scraper.scraper import scraper
 from scraper.analyzer import analyzer
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, send_file
 
-
-img = os.path.join('static', 'Image')
 
 @app.route('/index')
 def index():
@@ -18,6 +16,9 @@ def run_scraper():
     if request.method == 'POST':
         global code
         code = request.form['code']
+        with open('app/static/codes.txt', 'w+') as f:
+            f.write(code)
+            f.close()
         onlyfiles = [f for f in listdir('app/static/opinions') if isfile(join('app/static/opinions', f))]
         all_codes = [f[:-5] for f in onlyfiles]
         if code not in all_codes:
@@ -29,13 +30,16 @@ def run_scraper():
     
 @app.route('/results/<id>', methods=['GET', 'POST'])
 def results(id):
-    return render_template('results.html.jinja')
+    paths = []
+    paths.append(f'img/{id}_bar.png')
+    paths.append(f'img/{id}_pie.png')
+    return render_template('results.html.jinja', paths=paths)
 
 @app.route('/download', methods=['GET', 'POST'])
 def download():
-    if request.method == 'GET':
-        code = request.args.get['code']
-        path = f'app/static/opinions/{code}.json'
-        return path
-    return "None"
+    with open('app/static/codes.txt', 'r') as f:
+        code = f.read()
+        f.close()
+    path = f'static/opinions/{code}.json'
+    return send_file(path, as_attachment=True)
     
