@@ -1,6 +1,6 @@
 {% extends 'base.html.jinja' %}
 {% block content %}
-    <form action="{{ url_for('run_scraper') }}" method="post">
-    <label for="code">Enter the code:</label>
-    <input type="text" id="code" name="code" placeholder="Code">
+    <form action="{{ url_for('run_scraper') }}" method="post" class="form-label">
+    <label for="code" class="label">Enter the code:</label>
+    <input type="text" id="code" name="code" placeholder="Code" class="input">
 {% endblock %}

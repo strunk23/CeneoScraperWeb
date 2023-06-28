@@ -7,7 +7,7 @@ from scraper.analyzer import analyzer
 from flask import render_template, request, redirect, url_for, send_file
 
 
-@app.route('/index')
+@app.route('/')
 def index():
     return render_template('index.html.jinja')
 
@@ -30,10 +30,13 @@ def run_scraper():
     
 @app.route('/results/<id>', methods=['GET', 'POST'])
 def results(id):
+    with open('app/static/codes.txt', 'r') as f:
+        code = f.read()
+        f.close()
     paths = []
     paths.append(f'img/{id}_bar.png')
     paths.append(f'img/{id}_pie.png')
-    return render_template('results.html.jinja', paths=paths)
+    return render_template('results.html.jinja', paths=paths, code=code)
 
 @app.route('/download', methods=['GET', 'POST'])
 def download():

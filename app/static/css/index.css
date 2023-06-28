@@ -1,4 +1,46 @@
+label, h2, h5 {
+    color: black;
+    text-align: center;
+}
+
+h5 {
+    padding: 20px;
+}
+
+footer {
+    color: black;
+    position: fixed;
+    bottom: 0;
+    font-size: 20px;
+}
+
 .container-text-center {
-    align-items: center;
-    background-color: brown;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.display-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.form-label, .input, .label {
+    text-align: center;
+}
+
+.download-button {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.download-button-style {
+    cursor: pointer;
+    border-width: 3px;
+    background-color: black;
+    color: aliceblue;
+    border-radius: 10px;
+    
 }
